@@ -13,7 +13,7 @@ Vagrant.configure(2) do |config|
   #   v.customize ["modifyvm", :id, "--nictype1", "virtio"]
   # end
 
-  config.vm.synced_folder "~/sun", "/sun"
+  config.vm.synced_folder "~/sun", "/sun", type: "nfs"
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "rails"
