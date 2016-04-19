@@ -15,7 +15,7 @@ Vagrant.configure(2) do |config|
   config.ssh.username = "vagrant"
   config.ssh.password = "..."
 
-
+  config.vm.synced_folder "./", "/vagrant", disabled: true
   config.vm.synced_folder "~/sun", "/sun", type: "nfs"
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
