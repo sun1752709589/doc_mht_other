@@ -1,0 +1,6 @@
+mysql create read only user:
+1:mysql -uroot -p
+2:grant select on database_name.* to 'read-only_user_name'@'%' identified by 'password';
+3:flush privileges;
+4:/etc/mysql/my.cnf
+  change bind from 127.0.0.1 to 0.0.0.0
