@@ -13,7 +13,8 @@ Vagrant.configure(2) do |config|
   #   v.customize ["modifyvm", :id, "--nictype1", "virtio"]
   # end
   config.ssh.username = "vagrant"
-  config.ssh.password = "..."
+  # config.ssh.password = "..."
+  config.ssh.insert_key = false
 
   config.vm.synced_folder "./", "/vagrant", disabled: true
   config.vm.synced_folder "~/sun", "/sun", type: "nfs"
@@ -55,7 +56,7 @@ Vagrant.configure(2) do |config|
     vb.gui = false
 
     # Customize the amount of memory on the VM:
-    vb.memory = "3000"
+    vb.memory = "1500"
   end
   #
   # View the documentation for the provider you are using for more
