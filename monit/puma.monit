@@ -1,0 +1,2 @@
+check process puma with pidfile /home/deployer/warehouse/shared/tmp/pids/puma.pid
+  group puma

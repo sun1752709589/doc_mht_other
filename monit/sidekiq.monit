@@ -1,0 +1,2 @@
+check process sidekiq with pidfile /home/deployer/warehouse/shared/tmp/pids/sidekiq.pid
+  group sidekiq

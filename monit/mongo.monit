@@ -1,0 +1,4 @@
+check process mongo with pidfile /var/run/mongodb.pid
+  group database
+  start program = "/etc/init.d/mongod start"
+  stop program = "/etc/init.d/mongod stop"
