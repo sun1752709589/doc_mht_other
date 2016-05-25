@@ -1,0 +1,46 @@
+#set the default interval that monit checks your services
+set daemon 45
+
+#setup the mail server
+set mailserver localhost
+
+#enable the built in web server for browsing the services you're monitoring:
+set httpd port 2812 and
+use address localhost
+allow localhost
+
+# setup to email address to send mail to:
+
+set alert root@localhost
+set mail-format { from: use-a@real-mail-domain.com }
+
+check process sshd with pidfile /var/run/sshd.pid
+start program = "/etc/init.d/ssh start"
+stop program = "/etc/init.d/ssh stop"
+
+check process postfix with pidfile /var/spool/postfix/pid/master.pid
+start program = "/etc/init.d/postfix start"
+stop program = "/etc/init.d/postfix stop"
+
+check process php5-fpm with pidfile /var/run/php5-fpm.pid
+start program = "/etc/init.d/php5-fpm start"
+stop program = "/etc/init.d/php5-fpm stop"
+
+check process mysqld with pidfile /var/run/mysqld/mysqld.pid
+start program = "/etc/init.d/mysql start"
+stop program = "/etc/init.d/mysql stop"
+
+check process nginx with pidfile /opt/nginx/logs/nginx.pid
+start program = "/etc/init.d/nginx start"
+stop program = "/etc/init.d/nginx stop"
+
+check process railo_ctl with pidfile /opt/railo/tomcat/work/tomcat.pid
+start program = "/etc/init.d/railo_ctl start" with timeout 90 seconds
+stop program = "/etc/init.d/railo_ctl forcequit"
+if failed host 127.0.0.1 port 8888 with protocol http and request "/railo-context/admin/server.cfm" with timeout 5 seconds for 3 times within 4 cycles then restart
+
+# kvm virtual machine or other pingable network resource - Replace x.x.x.x with the actual IP address and vmname with any label you wish to give this rule.
+check host vmname with address x.x.x.x
+start program = "/usr/bin/virsh start vmname"
+stop program = "/usr/bin/virsh stop vmname"
+if failed icmp type echo count 2 with timeout 5 seconds then restart
