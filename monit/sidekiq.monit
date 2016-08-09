@@ -1,2 +1,8 @@
 check process sidekiq with pidfile /home/deployer/warehouse/shared/tmp/pids/sidekiq.pid
   group sidekiq
+
+
+check process sidekiq with pidfile /home/deployer/warehouse/shared/tmp/pids/sidekiq.pid
+  start program = "/bin/bash -l -c 'cd /home/deployer/warehouse/current && rvm use ruby-2.3.1 && bundle exec sidekiq -d -e production -L log/sidekiq.log -C config/sidekiq.yml -P tmp/pids/sidekiq.pid" as uid deployer
+  stop program = "/bin/bash -l -c 'cd /home/deployer/warehouse/current && kill -s INT `cat tmp/pids/sidekiq.pid`'"
+  group sidekiq

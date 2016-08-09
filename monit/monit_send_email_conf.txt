@@ -1,0 +1,6 @@
+# set send email config
+set mailserver smtpdm.aliyun.com port 25
+  username "redmine@mail.huantengsmart.com" password "..."
+  using tlsv1
+set alert syf@huantengsmart.com
+set mail-format { from: redmine@mail.huantengsmart.com }
