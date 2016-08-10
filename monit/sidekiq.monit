@@ -1,8 +1,19 @@
 check process sidekiq with pidfile /home/deployer/warehouse/shared/tmp/pids/sidekiq.pid
   group sidekiq
 
+check process sidekiq
+  with pidfile /home/deployer/warehouse/shared/tmp/pids/sidekiq.pid
+  start program = "/bin/su - deployer -c 'cd /home/deployer/warehouse/current && RAILS_ENV=production bundle exec sidekiq -d -e production -L /home/deployer/warehouse/shared/log/sidekiq.log -p /home/deployer/warehouse/shared/tmp/pids/sidekiq.pid -C /home/deployer/warehouse/shared/config/sidekiq.yml'" with timeout 60 seconds
+  stop program = "/bin/su - deployer -c 'cd /home/deployer/warehouse/current && bundle exec sidekiqctl shutdown /home/deployer/warehouse/current/tmp/pids/sidekiq.pid 70'" with timeout 80 seconds
+  if totalmem > 1800 MB for 5 cycles then alert
+  if cpu > 50% for 5 cycles then alert
+  group sidekiq
 
-check process sidekiq with pidfile /home/deployer/warehouse/shared/tmp/pids/sidekiq.pid
-  start program = "/bin/bash -l -c 'cd /home/deployer/warehouse/current && rvm use ruby-2.3.1 && bundle exec sidekiq -d -e production -L log/sidekiq.log -C config/sidekiq.yml -P tmp/pids/sidekiq.pid" as uid deployer
-  stop program = "/bin/bash -l -c 'cd /home/deployer/warehouse/current && kill -s INT `cat tmp/pids/sidekiq.pid`'"
+
+check process sidekiq
+  with pidfile /home/deployer/phantom-server-four/shared/tmp/pids/sidekiq.pid
+  start program = "/bin/su - deployer -c 'cd /home/deployer/phantom-server-four/current && RAILS_ENV=production bundle exec sidekiq -d -e production -L /home/deployer/phantom-server-four/shared/log/sidekiq.log -p /home/deployer/phantom-server-four/shared/tmp/pids/sidekiq.pid -C /home/deployer/phantom-server-four/shared/config/sidekiq.yml'" with timeout 90 seconds
+  stop program = "/bin/su - deployer -c 'cd /home/deployer/phantom-server-four/current && bundle exec sidekiqctl shutdown /home/deployer/phantom-server-four/current/tmp/pids/sidekiq.pid 70'" with timeout 80 seconds
+  if totalmem > 1800 MB for 5 cycles then alert
+  if cpu > 50% for 5 cycles then alert
   group sidekiq
