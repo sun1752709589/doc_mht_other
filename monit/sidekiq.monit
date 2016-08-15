@@ -16,4 +16,12 @@ check process sidekiq
   stop program = "/bin/su - deployer -c 'cd /home/deployer/phantom-server-four/current && bundle exec sidekiqctl shutdown /home/deployer/phantom-server-four/current/tmp/pids/sidekiq.pid 70'" with timeout 80 seconds
   if totalmem > 1800 MB for 5 cycles then alert
   if cpu > 50% for 5 cycles then alert
+  if does not exist for 3 cycles then restart
   group sidekiq
+
+
+check process crond with pidfile /var/run/crond.pid
+    if does not exist for 3 cycles
+        then exec "/etc/monit/pagerduty-trigger crond"
+    else if passed for 3 cycles
+        then exec "/etc/monit/pagerduty-resolve crond"
