@@ -1,0 +1,8 @@
+check process delay_job
+  with pidfile /home/deployer/phantom-server-four/shared/tmp/pids/delayed_job.pid
+  start program = "/bin/su - deployer -c 'cd /home/deployer/phantom-server-four/current && RAILS_ENV=production bundle exec ruby /home/deployer/phantom-server-four/current/lib/script/delay_job start" with timeout 90 seconds
+  stop program = "/bin/su - deployer -c 'cd /home/deployer/phantom-server-four/current && RAILS_ENV=production bundle exec ruby /home/deployer/phantom-server-four/current/lib/script/delay_job stop" with timeout 90 seconds
+  if totalmem > 1800 MB for 5 cycles then alert
+  if cpu > 50% for 5 cycles then alert
+  if does not exist for 3 cycles then restart
+  group delay_job
