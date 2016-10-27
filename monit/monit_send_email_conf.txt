@@ -2,7 +2,7 @@
 set mailserver smtpdm.aliyun.com port 25
   username "redmine@mail.huantengsmart.com" password "..."
   using tlsv1
-set alert syf@huantengsmart.com
+set alert syf@huantengsmart.com on { instance, nonexist, pid, status }
 set mail-format { from: redmine@mail.huantengsmart.com }
 
 
