@@ -1,2 +1,6 @@
 check process puma with pidfile /home/deployer/warehouse/shared/tmp/pids/puma.pid
   group puma
+
+
+check process puma with pidfile /home/deployer/phantom-server-four/shared/tmp/pids/puma.pid
+  group server

@@ -1,0 +1,9 @@
+check process phantom_tcp
+  matching "phantom_tcp"
+  if cpu usage > 50% for 3 cycles then stop
+  group server
+
+check process op_logger
+  matching "op_logger"
+  if cpu usage > 50% for 3 cycles then stop
+  group server

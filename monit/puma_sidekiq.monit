@@ -1,0 +1,13 @@
+check process occupy_sidekiq with pidfile /home/deployer/occupy/shared/tmp/pids/sidekiq.pid
+  group sidekiq
+check process alarm_server_sidekiq with pidfile /home/deployer/alarm-server/shared/tmp/pids/sidekiq.pid
+  group sidekiq
+check process o_project_test_sidekiq with pidfile /home/deployer/o_project_test/shared/tmp/pids/sidekiq.pid
+  group sidekiq
+
+check process occupy_puma with pidfile /home/deployer/occupy/shared/tmp/pids/puma.pid
+  group puma
+check process alarm_server_puma with pidfile /home/deployer/alarm-server/shared/tmp/pids/puma.pid
+  group puma
+check process alarm_server_puma with pidfile /home/deployer/o_project_test/shared/tmp/pids/puma.pid
+  group puma
