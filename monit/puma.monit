@@ -4,3 +4,30 @@ check process puma with pidfile /home/deployer/warehouse/shared/tmp/pids/puma.pi
 
 check process puma with pidfile /home/deployer/phantom-server-four/shared/tmp/pids/puma.pid
   group server
+
+
+
+check process back_home_light_puma with pidfile /var/www/back_home_light/shared/tmp/pids/server.pid
+  group puma
+check process back_home_light_sidekiq with pidfile /var/www/back_home_light/shared/tmp/pids/sidekiq.pid
+  group sidekiq
+check process one_touch_dial_puma with pidfile /var/www/one_touch_dial/shared/tmp/pids/server.pid
+  group puma
+check process one_touch_dial_sidekiq with pidfile /var/www/one_touch_dial/shared/tmp/pids/sidekiq.pid
+  group sidekiq
+check process security_puma with pidfile /var/www/security/shared/tmp/pids/server.pid
+  group puma
+check process security_sidekiq with pidfile /var/www/security/shared/tmp/pids/sidekiq.pid
+  group sidekiq
+check process open_window_puma with pidfile /var/www/open_window/shared/tmp/pids/server.pid
+  group puma
+check process open_window_sidekiq with pidfile /var/www/open_window/shared/tmp/pids/sidekiq.pid
+  group sidekiq
+check process sonos_puma with pidfile /var/www/sonos/shared/tmp/pids/server.pid
+  group puma
+check process sonos_sidekiq with pidfile /var/www/sonos/shared/tmp/pids/sidekiq.pid
+  group sidekiq
+check process door_reminder_puma with pidfile /var/www/door_reminder/shared/tmp/pids/server.pid
+  group puma
+check process door_reminder_sidekiq with pidfile /var/www/door_reminder/shared/tmp/pids/sidekiq.pid
+  group sidekiq
