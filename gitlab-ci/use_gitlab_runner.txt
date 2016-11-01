@@ -1,0 +1,35 @@
+1:install gitlab-runner:https://github.com/geniousbar/geniousbar.github.io/blob/master/ubuntu/install_gitlab_runner.md
+2:register a runner: sudo gitlab-ci-multi-runner register --name xxx --url http://git.huantengsmart.com/ci --registration-token ...(必须用sudo或者root用户,executor选择shell)
+3:start the runner: sudo gitlab-ci-multi-runner start
+4:write .gitlab-ci.yml in rails root path:
+like:
+```
+before_script:
+  - bash --login
+  - source /home/deployer/.rvm/scripts/rvm #让runner使用rvm
+  - rvm use ruby-2.3.1
+  - ruby -v
+  - pwd
+  - whoami
+  - w
+
+rspec:
+  type: test
+  script:
+    - bundle install
+    - cp config/database.yml.sample config/database.yml
+    - cp config/secrets.yml.sample config/secrets.yml
+    - cp config/settings.yml.sample config/settings.yml
+    - RAILS_ENV=test bundle exec rake db:drop db:create db:migrate
+    - RAILS_ENV=test bundle exec rspec .
+
+deploy:
+  type: deploy
+  script:
+    - bundle exec cap production deploy
+```
+once you have new commit, it will automatic run rspec test and deploy to remote server
+5:if you want delete the runner you can:
+sudo gitlab-ci-multi-runner list
+to find you runner and then
+sudo gitlab-ci-multi-runner unregister --url http://git.huantengsmart.com/ci --token 7b33653f3a10a478111a3e0479dce0
