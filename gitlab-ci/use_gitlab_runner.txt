@@ -33,3 +33,14 @@ once you have new commit, it will automatic run rspec test and deploy to remote 
 sudo gitlab-ci-multi-runner list
 to find you runner and then
 sudo gitlab-ci-multi-runner unregister --url http://git.huantengsmart.com/ci --token 7b33653f3a10a478111a3e0479dce0
+
+
+注:
+当遇见以下错误时(sudo: no tty present and no askpass program specified)
+sudo vi /etc/sudoers
+
+root    ALL=(ALL:ALL) ALL
+deployer ALL=(ALL:ALL) NOPASSWD: ALL
+gitlab-runner ALL=(ALL:ALL) NOPASSWD: ALL
+%admin ALL=(ALL) NOPASSWD: ALL
+%sudo   ALL=(ALL:ALL) NOPASSWD: ALL
